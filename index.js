@@ -15,11 +15,14 @@ function approach(goal, current, deltaTime){
     }
     return goal;
 }
+function random(max){
+    return Math.floor(Math.random() * max);
+}
 const player = {
-    x: 0,
+    x: 10,
     y:0,
-    width:window.innerHeight / 10,
-    height:window.innerHeight/10,
+    width:window.innerHeight / 20,
+    height:window.innerHeight/20,
     color: "Red",
     vecMomentum : {x : 0, y: 0},
     vecMomentumGoal: {x : 0, y : 0},
@@ -36,21 +39,27 @@ const player = {
         this.height = window.innerHeight / 10;
     }
 };
-const plastic = {
-    pos: {x:0, y:0},
-    vecMomentum : {x:0, y:0},
-    vecMomentumGoal : {x:0, y:0},
-    aspectRatio: window.innerHeight / 20,
-    type: 0,
-    draw: function(ctx){},
-    move: function(x, y){},
-    constructor(){
+//plastic textures
 
-    },
+class plastic{
+    pos = {x:(1200-40), y:0};
+    vecMomentum = {x:0, y:0};
+    vecMomentumGoal = {x:8, y:0};
+    type = 0;
+    draw(ctx){
+        ctx.fillStyle = "grey";
+        ctx.fillRect(this.pos.x, this.pos.y, 40, 40);
+    };
+    update(deltaTime){
+        this.vecMomentum.x = approach(this.vecMomentumGoal.x, this.vecMomentum.x, deltaTime)
+        this.pos.x -= this.vecMomentum.x;
+    };
+    plastic(type, yPos){
+        this.type = type;
+        this.pos.y = yPos;
+    };
 
 }
-
-
 //key listeners
 window.addEventListener("keydown", (e) =>{
     if(e.key == "w"){
@@ -70,17 +79,22 @@ window.addEventListener("resize", () =>{
     //player.setAspectRatio();
 })
 
-
 //game loop stuff
 const fps = 15;
+const makePlastic = true;
+function init(){
+    gameLoop();
+}
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(document.getElementById("Background"), 0, 0, 512, 512);
     player.draw(ctx);
+    jeff.draw(ctx);
 }
 function update(deltaTime){
     player.vecMomentum.y = approach(player.vecMomentumGoal.y, player.vecMomentum.y, deltaTime*45)
     player.move(player.vecMomentum.x, player.vecMomentum.y);
+    
 }
 let then = Date.now();
 function gameLoop(timestamp){
@@ -90,9 +104,6 @@ function gameLoop(timestamp){
     update(dt);
     
     requestAnimationFrame(gameLoop)
-}
-function init(){
-    gameLoop();
 }
 
 
