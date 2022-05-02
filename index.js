@@ -87,14 +87,13 @@ function init(){
 }
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.drawImage(document.getElementById("Background"), 0, 0, 512, 512);
+    ctx.drawImage(document.getElementById("Background"), 0, 0, 1200, 800);
     player.draw(ctx);
-    jeff.draw(ctx);
 }
 function update(deltaTime){
     player.vecMomentum.y = approach(player.vecMomentumGoal.y, player.vecMomentum.y, deltaTime*45)
     player.move(player.vecMomentum.x, player.vecMomentum.y);
-    
+
 }
 let then = Date.now();
 function gameLoop(timestamp){
