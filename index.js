@@ -21,8 +21,8 @@ function random(max){
 const player = {
     x: 10,
     y:0,
-    width:window.innerHeight / 20,
-    height:window.innerHeight/20,
+    width:100,
+    height:100,
     color: "Red",
     vecMomentum : {x : 0, y: 0},
     vecMomentumGoal: {x : 0, y : 0},
@@ -33,6 +33,10 @@ const player = {
     move: function(x, y){
         this.x += x;
         this.y += y;
+    },
+    wallCollision(){
+        if(this.y < 0){this.y = 0;}
+        if(this.y > canvas.height-this.height){this.y = canvas.height-this.height;}
     },
     setAspectRatio: function(){
         this.width = window.innerHeight / 10;
@@ -93,6 +97,7 @@ function draw(){
 function update(deltaTime){
     player.vecMomentum.y = approach(player.vecMomentumGoal.y, player.vecMomentum.y, deltaTime*45)
     player.move(player.vecMomentum.x, player.vecMomentum.y);
+    player.wallCollision();
 
 }
 let then = Date.now();
