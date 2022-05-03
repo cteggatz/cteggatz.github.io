@@ -55,7 +55,7 @@ class plastic{
         ctx.fillStyle = "grey";
         ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
         */
-       ctx.drawImage(this.textureAdress, 0, 0, this.x, this.y);
+       ctx.drawImage(this.textureAdress, this.x, this.y, this.textureAdress.width, this.textureAdress.height);
     };
     update(deltaTime){
         this.vecMomentum.x = approach(this.vecMomentumGoal.x, this.vecMomentum.x, deltaTime)
