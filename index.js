@@ -3,8 +3,6 @@ const ctx = canvas.getContext("2d");
 //canvas.height = window.innerHeight;
 //wscanvas.width = window.innerWidth;
 
-let entityStack = new Array();
-
 
 function approach(goal, current, deltaTime){
     var dif = (goal - current);
@@ -49,18 +47,24 @@ class plastic{
     pos = {x:(1200-40), y:0};
     vecMomentum = {x:0, y:0};
     vecMomentumGoal = {x:8, y:0};
+    size = 160
     type = 0;
     draw(ctx){
         ctx.fillStyle = "grey";
-        ctx.fillRect(this.pos.x, this.pos.y, 40, 40);
+        ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
     };
     update(deltaTime){
         this.vecMomentum.x = approach(this.vecMomentumGoal.x, this.vecMomentum.x, deltaTime)
         this.pos.x -= this.vecMomentum.x;
+        if(this.pos.x < -this.size){
+            this.pos.x = canvas.width;
+            this.pos.y = random(canvas.height- this.size)
+        }
     };
-    plastic(type, yPos){
-        this.type = type;
-        this.pos.y = yPos;
+    constructor(){
+        this.type = 0;
+        this.pos.y = random(800);
+        this.vecMomentumGoal.x = random(6)+8;
     };
 
 }
@@ -86,20 +90,22 @@ window.addEventListener("resize", () =>{
 //game loop stuff
 const fps = 15;
 const makePlastic = true;
-let jeff = new plastic(0, 50);
+let entityStack = new Array();
 function init(){
+    entityStack.push(new plastic())
     gameLoop();
 }
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(document.getElementById("Background"), 0, 0, 1200, 800);
     player.draw(ctx);
+    entityStack.forEach(element => element.draw(ctx));
 }
 function update(deltaTime){
     player.vecMomentum.y = approach(player.vecMomentumGoal.y, player.vecMomentum.y, deltaTime*45)
     player.move(player.vecMomentum.x, player.vecMomentum.y);
     player.wallCollision();
-
+    entityStack.forEach(element => element.update())
 }
 let then = Date.now();
 function gameLoop(timestamp){
@@ -110,6 +116,4 @@ function gameLoop(timestamp){
     
     requestAnimationFrame(gameLoop)
 }
-
-
 init();
