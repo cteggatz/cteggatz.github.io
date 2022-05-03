@@ -86,6 +86,7 @@ window.addEventListener("resize", () =>{
 //game loop stuff
 const fps = 15;
 const makePlastic = true;
+let jeff = new plastic(0, 50);
 function init(){
     gameLoop();
 }
