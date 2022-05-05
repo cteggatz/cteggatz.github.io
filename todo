@@ -1,0 +1,10 @@
+toDo:
+    Character:
+        ☐ add Turtle Texture
+    Trash:
+        ☐ add more trash textures
+        ☐ add score after trash passes
+        ☐ make the trash increase in speed over time
+        ☐ make the trash rotate
+    General:
+        ☐ add score
