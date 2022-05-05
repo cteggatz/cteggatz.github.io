@@ -58,7 +58,7 @@ class plastic{
         this.pos.x -= this.vecMomentum.x;
         if(this.pos.x < -this.size){
             this.pos.x = canvas.width;
-            this.pos.y = random(canvas.height- this.size)
+            this.pos.y = random(canvas.height - this.size)
         }
     };
     constructor(){
