@@ -47,26 +47,32 @@ class plastic{
     pos = {x:(1200-40), y:0};
     vecMomentum = {x:0, y:0};
     vecMomentumGoal = {x:8, y:0};
-    size = 160
     type = 0;
     textureAdress = document.getElementById("trashStrawTexture");
     draw(ctx){
-        /*
-        ctx.fillStyle = "grey";
-        ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
-        */
-       ctx.drawImage(this.textureAdress, this.x, this.y, this.textureAdress.width, this.textureAdress.height);
+       ctx.drawImage(this.textureAdress, this.pos.x, this.pos.y, this.textureAdress.width, this.textureAdress.height);
     };
     update(deltaTime){
+        switch(this.type){
+            case 0:
+                this.textureAdress = document.getElementById("trashTrashPileTexture");
+                break;
+            case 1:
+                this.textureAdress = document.getElementById("trashStrawTexture");
+                break;    
+        }
         this.vecMomentum.x = approach(this.vecMomentumGoal.x, this.vecMomentum.x, deltaTime)
         this.pos.x -= this.vecMomentum.x;
-        if(this.pos.x < -this.size){
+
+        if(this.pos.x < -this.textureAdress.width){
             this.pos.x = canvas.width;
-            this.pos.y = random(canvas.height - this.size)
+            this.pos.y = random(canvas.height - this.textureAdress.height)
+            this.type = random(2);
+            console.log(this.type)
         }
     };
     constructor(){
-        this.type = 0;
+        this.type = random(1);
         this.pos.y = random(800);
         this.vecMomentumGoal.x = random(6)+8;
     };
@@ -109,7 +115,7 @@ function update(deltaTime){
     player.vecMomentum.y = approach(player.vecMomentumGoal.y, player.vecMomentum.y, deltaTime*45)
     player.move(player.vecMomentum.x, player.vecMomentum.y);
     player.wallCollision();
-    entityStack.forEach(element => element.update())
+    entityStack.forEach(element => element.update());
 }
 let then = Date.now();
 function gameLoop(timestamp){
