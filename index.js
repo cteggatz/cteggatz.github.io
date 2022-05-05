@@ -49,9 +49,13 @@ class plastic{
     vecMomentumGoal = {x:8, y:0};
     size = 160
     type = 0;
+    textureAdress = document.getElementById("trashStrawTexture");
     draw(ctx){
+        /*
         ctx.fillStyle = "grey";
         ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
+        */
+       ctx.drawImage(this.textureAdress, this.x, this.y, this.textureAdress.width, this.textureAdress.height);
     };
     update(deltaTime){
         this.vecMomentum.x = approach(this.vecMomentumGoal.x, this.vecMomentum.x, deltaTime)
