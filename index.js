@@ -3,7 +3,6 @@ const ctx = canvas.getContext("2d");
 //canvas.height = window.innerHeight;
 //wscanvas.width = window.innerWidth;
 
-
 function approach(goal, current, deltaTime){
     var dif = (goal - current);
     if(dif > deltaTime){
@@ -63,10 +62,10 @@ class plastic{
         }
         this.vecMomentum.x = approach(this.vecMomentumGoal.x, this.vecMomentum.x, deltaTime)
         this.pos.x -= this.vecMomentum.x;
-
         if(this.pos.x < -this.textureAdress.width){
             this.pos.x = canvas.width;
             this.pos.y = random(canvas.height - this.textureAdress.height)
+            this.vecMomentumGoal.x = random(8)+8;
             this.type = random(2);
             console.log(this.type)
         }
