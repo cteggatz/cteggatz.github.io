@@ -3,8 +3,8 @@ toDo:
         ☐ add Turtle Texture
     Trash:
         ☐ add more trash textures
-        ☐ add score after trash passes
-        ☐ make the trash increase in speed over time
+        ✔ add score after trash passes @done(22-05-05 20:43)
+        ✔ make the trash increase in speed over time @done(22-05-05 20:59)
         ☐ make the trash rotate
     General:
-        ☐ add score
+        ✔ add score @done(22-05-05 20:43)

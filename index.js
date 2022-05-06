@@ -70,13 +70,13 @@ class plastic{
             this.vecMomentumGoal.x = random(8)+8;
             this.type = random(2);
             score++;
-            console.log(this.type)
+            //console.log(this.type)
         }
     };
     constructor(){
         this.type = random(1);
         this.pos.y = random(800);
-        this.vecMomentumGoal.x = random(6)+8;
+        this.vecMomentumGoal.x = random(8)+8;
     };
 
 }
@@ -101,7 +101,7 @@ window.addEventListener("resize", () =>{
 
 //game loop stuff
 const fps = 15;
-const makePlastic = true;
+let makePlastic = false;
 let entityStack = new Array();
 function init(){
     entityStack.push(new plastic())
@@ -119,7 +119,11 @@ function update(deltaTime){
     player.wallCollision();
     scoreBoard.innerHTML = `score : ${score}`;
     entityStack.forEach(element => element.update());
+    if((score % 20) == 0 && makePlastic == true){entityStack.push(new plastic()); makePlastic = false}
+    if((score % 20) == 19){makePlastic = true}
 }
+
+//event loop
 let then = Date.now();
 function gameLoop(timestamp){
     dt = (((timestamp - then)));
