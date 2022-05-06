@@ -1,5 +1,7 @@
 const canvas = document.getElementById("canvas");
+const scoreBoard = document.getElementById("score")
 const ctx = canvas.getContext("2d");
+let score = 0;
 //canvas.height = window.innerHeight;
 //wscanvas.width = window.innerWidth;
 
@@ -67,6 +69,7 @@ class plastic{
             this.pos.y = random(canvas.height - this.textureAdress.height)
             this.vecMomentumGoal.x = random(8)+8;
             this.type = random(2);
+            score++;
             console.log(this.type)
         }
     };
@@ -114,6 +117,7 @@ function update(deltaTime){
     player.vecMomentum.y = approach(player.vecMomentumGoal.y, player.vecMomentum.y, deltaTime*45)
     player.move(player.vecMomentum.x, player.vecMomentum.y);
     player.wallCollision();
+    scoreBoard.innerHTML = `score : ${score}`;
     entityStack.forEach(element => element.update());
 }
 let then = Date.now();
